@@ -1,16 +1,27 @@
-name: My First Workflow
+name: Generate the ASCII artwork
 
 on: push
 
 jobs:
   first_job:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Welcome message
-        run: echo "My first GitHub Action"
+      - name: check workflow
+        uses: actions/checkout@4
 
-      - name: List files
-        run: ls
+      - name: Install cowsay program
+        run: sudo apt-get install cowsay -y
+
+      - name: Execute cowsay CMD
+        run: cowsay -f dragon "Run for a cover, i'm DRAGON....RAWR" >> dragon.txt
+
+      - name: Test file exists
+        run: grep -i "drogon" drogon.txt
 
       - name: Read file
-        run: cat README.md
+        run: cat dragon.txt
+      
+      - name: List repo file
+        run: ls -ltra
+ 
